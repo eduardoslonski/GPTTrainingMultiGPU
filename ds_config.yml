@@ -1,0 +1,49 @@
+num_epochs: 1
+device: cuda
+
+# DeepSpeed
+train_micro_batch_size_per_gpu: 24
+gradient_accumulation_steps: 1
+steps_per_print: 10000
+gradient_clipping: 1.0
+fp16:
+  enabled: True
+  loss_scale: 0
+  initial_scale_power: 12
+  loss_scale_window: 1000
+  hysteresis: 2
+  min_loss_scale: 1
+bf16:
+  enabled: False
+optimizer:
+  type: AdamW
+  params:
+    lr: 3.0e-4
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 4.0e-5
+scheduler:
+  type: WarmupCosineLR
+  params:
+    warmup_min_ratio: 0
+    total_num_steps: 89255
+    warmup_num_steps: 1000
+zero_optimization:
+  stage: 1
+  reduce_bucket_size: 500000000
+  allgather_bucket_size: 500000000
+
+# model
+num_layers: 32
+hidden_size: 4096
+num_attention_heads: 32
+context_length: 2048
+
+# training
+use_val_set: False
+eval_every: 1000
+
+checkpoint_every: 5000
+
+use_wandb: True
+wandb_run_name: "11b_tokens_default"

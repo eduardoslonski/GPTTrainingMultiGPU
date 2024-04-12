@@ -1,0 +1,4 @@
+transformers
+wandb
+deepspeed
+boto3

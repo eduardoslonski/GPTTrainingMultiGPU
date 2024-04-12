@@ -1,0 +1,5 @@
+data/
+*__pycache__
+saved_checkpoints/
+wandb/
+.ipynb_checkpoints/
